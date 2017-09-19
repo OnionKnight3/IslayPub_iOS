@@ -1,0 +1,33 @@
+.dialog > .group_members{
+	width: 70vw;
+	height: 70vh;
+	overflow-y: auto;
+}
+
+.dialog > .group_members > .maru{
+	position: relative;
+	box-shadow: none;
+	display: inline-block;
+}
+
+.dialog > .group_members > .maru > .close_button{
+    position: absolute;
+	right: 0;
+    top: 0;
+}
+
+.dialog > .group_members > .maru > .z_index_input{
+    position: absolute;
+	left: 0;
+    top: 0;
+}
+
+/* input type="number" の右側のインクリメントデクリメントボタンを消す */
+.z_index_input::-webkit-outer-spin-button,
+.z_index_input::-webkit-inner-spin-button{
+    -webkit-appearance: none;
+    margin: 0;
+}
+.z_index_input{
+    -moz-appearance:textfield;
+}

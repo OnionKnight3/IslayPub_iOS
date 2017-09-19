@@ -1,0 +1,54 @@
+/* background */
+.dialog_background{
+	position:absolute;
+	top:0px;
+	height:100%;
+	width:100%;
+	z-index:100;
+}
+
+.dialog_background:last-child{
+	background-color:rgba(0,0,0,0.7);
+}
+
+.dialog{
+	position:absolute;
+	background-color:#ffffff;
+	text-align: center;
+	border-radius: 10px 10px 10px 10px / 10px 10px 10px 10px;
+	padding: 3%;
+	max-height: 100%;
+	
+	background-image: url(./img/dialog_background.png);
+	background-size: 100% 100%;
+}
+
+.dialog button, .dialog input[type="button"]{
+	min-height: 30px;
+}
+
+#image_box, #changing_image_box{
+	height:100px;
+	background-image: url("./img/touka.png");
+	max-width: 300px;
+}
+
+input[type=number]{
+	width:60px;
+}
+
+.dialog_header{
+	height: 25px;
+	width: 100%;
+    position: absolute;
+	top: 0;
+    left: 0;
+}
+
+.preset_imgs_box{
+	width: 300px;
+}
+
+#system_dialog_wall{
+	border: solid 1px gray;
+}

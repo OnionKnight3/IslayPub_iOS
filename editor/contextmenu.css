@@ -1,0 +1,25 @@
+#contextmenu_background{
+	background-color: transparent;
+	height: 100%;
+	width: 100%;
+	position: absolute;
+	z-index:100;
+}
+
+.contextmenu_items{
+	border: 2px solid rgba(60, 128, 51, 0.5);
+	border-radius: 10px;
+}
+
+.contextmenu_item{
+	border: 1px solid rgba(60, 128, 51, 0.5);
+}
+
+.contextmenu_item:hover{
+	background-color: rgb(120, 255, 102);
+}
+
+.contextmenu_items{
+	position: absolute;
+	background-color: rgba(166, 255, 133, 0.9);
+}

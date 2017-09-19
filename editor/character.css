@@ -1,0 +1,129 @@
+/* キャラクタゾーン */
+#canvases{
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}
+div.canvas{
+	position:absolute;
+	width:0;
+	height:0;
+	overflow: visible;
+	display:none;
+}
+div.canvas:last-child{
+	display:block;
+}
+/* /キャラクタゾーン */
+
+/* まる関係 */
+div.maru{
+	height:100px;
+	width:100px;
+	border:solid 3px #000000;
+	position:absolute;
+	border-radius: 100%;
+	text-align:center;
+	background-color:#ffffff;
+	overflow:visible;
+
+	box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.4);
+}
+div.maru:hover, div.maru:active{
+	background-color:#ffff00;/*黄色*/
+	z-index: 10;
+}
+div.maru[yajirusu_start_point='yes']{
+	background-color:#ff7777;/*赤色*/
+	z-index: 5;
+}
+div.maru[selected='yes']{
+	border-style: outset;
+	border-color: red;
+}
+div.maru > span.maru_name{
+	display:block;
+}
+div.maru > img.maru_img{
+	margin:10px;
+	margin-bottom:5px;
+}
+/* /まる関係 */
+
+/* tooltip関係 */
+div.tooltip:before{
+	content:'';
+	display:block;
+	position:absolute;
+	width: 0;
+	height: 0;
+	border: 20px solid transparent;
+	border-left: 0px solid transparent;
+	border-right: 20px solid #33dddd;
+	left: -20px;
+	top: 25px;
+}
+div.tooltip > span{
+	display: block;
+}
+div.tooltip > hr{
+	margin-top:3px;
+	margin-bottom:3px;
+}
+div.tooltip{
+	display:none;
+	position:absolute;
+	padding: 10px;
+	top: 0;
+	left: 120px;
+	border:solid 2px #33dddd;
+	background-color: #33dddd;
+	border-radius: 20%;
+	overflow:visible;
+	white-space: nowrap;
+	z-index: 1;
+}
+.maru:hover > div.tooltip{
+	display:block;
+}
+.maru:hover > div.tooltip:hover{
+	display: none;
+}
+/* /tooltip関係 */
+
+/* 矢印関係 */
+svg{
+	position:absolute;
+	top:0;
+	left:0;
+	height:1px;
+	width:1px;
+	overflow:visible;
+	cursor: pointer;
+}
+svg:hover, svg:active{
+	z-index: 5;
+}
+svg:hover > *, svg:active > *, div.maru:hover > svg > *{
+	stroke: green;
+}
+svg[selected="yes"] > *{
+	stroke: #ff0000 !important;
+}
+path[name="path_shadow"]{
+	stroke: transparent !important;
+}
+/* /矢印関係 */
+
+/* 選択 */
+#area_select_rect{
+	position: absolute;
+	border: dotted 4px #000000;
+}
+
+/* その他 */
+.adding_group{
+	opacity: 0.5;
+}

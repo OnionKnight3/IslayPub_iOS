@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>IslayPub Editor</title>
+		<link href="main.css" rel="stylesheet" type="text/css" />
+		<link href="hud.css" rel="stylesheet" type="text/css" />
+		<link href="character.css" rel="stylesheet" type="text/css" />
+		<link href="group.css" rel="stylesheet" type="text/css" />
+		<link href="system.css" rel="stylesheet" type="text/css" />
+		<link href="dialog.css" rel="stylesheet" type="text/css" />
+		<link href="contextmenu.css" rel="stylesheet" type="text/css" />
+	</head>
+
+	<body onContextmenu="return false">
+		<div id="now_loading">読み込み中 now loading<br><span>#</span>
+		<progress max="100" value="0" id="loading_content_name"></progress>
+		<script>//読み込み状況表示用
+			loading_setInterval_id = setInterval(function(){//onloadイベントでclearIntervalする
+				//document.getElementById("loading_content_name").textContent = performance.getEntries()[performance.getEntries().length-1].name + "を読み込み中";
+				var a = (function(){
+					var a = 0;
+					Array.prototype.forEach.call(performance.getEntries(),
+					function(e){
+						a += e.transferSize;
+					});
+					return a;
+				})();
+				//console.log(a);
+				document.getElementById("loading_content_name").value =  Math.floor(a/277309 * 100);
+			}, 100);
+		</script>
+		</div>
+		<div id="message_area"></div>
+		<div id='system'>
+			<input type="range" id='system_speed_input' min=16 max=1000 step=1 value=100 oninput="document.getElementById('system_speed').textContent=this.value"><br>
+			<input type='number' id='system_width' min=0 value=480>
+			<input type='number' id='system_height' min=0 value=320>
+			<input type="color" id='system_background_color' value='#ffffff'>
+			<input type="checkbox" value="" id='system_wall'>
+		</div>
+		<div id='entire'>
+			<div id='character' class='entires' onwheel='IslayPub.character.wheel()' onmousewheel='IslayPub.character.wheel()'>
+				<div id='canvases'></div>
+			</div>
+		</div>
+		<div id="hud_area">
+			<div id="button_area">
+				<div id='character_edit_type_select' onchange='IslayPub.character.change_edit_type()'>
+					<label>
+						<input type="radio" name="chara_edit_action" value="select">
+						<img alt="" src='./img/state_select.png' draggable=false>
+						<span class="button_area_function_name"><span data-text_name="edit_type_select"></span></span>
+					</label>
+					<label>
+						<input type="radio" name="chara_edit_action" value="move">
+						<img alt="" src='./img/state_move.png' draggable=false>
+						<span class="button_area_function_name"><span data-text_name="edit_type_move"></span></span>
+					</label>
+					<label>
+						<input type="radio" name="chara_edit_action" value="create" checked="checked">
+						<img alt="" src='./img/state_state.png' draggable=false>
+						<span class="button_area_function_name"><span data-text_name="edit_type_state"></span></span>
+					</label>
+					<label>
+						<input type="radio" name="chara_edit_action" value="yajirusi">
+						<img alt="" src='./img/state_transit.png' draggable=false>
+						<span class="button_area_function_name"><span data-text_name="edit_type_transition"></span></span>
+					</label>
+					<label>
+						<input type="radio" name="chara_edit_action" value="delete">
+						<img alt="" src='./img/state_delete.png' draggable=false>
+						<span class="button_area_function_name"><span data-text_name="edit_type_delete"></span></span>
+					</label>
+				</div>
+				<div id="edit_buttons">
+					<div>
+						<img alt="" src='./img/undo.png' id='character_undo_button' ontouchend='if(!this.classList.contains("disabled_button"))IslayPub.undo_redo.undo();' draggable=false>
+						<div class="button_area_function_name"><span data-text_name="edit_buttons_undo"></span></div>
+					</div>
+					<div>
+						<img alt="" src='./img/redo.png' id='character_redo_button' ontouchend='if(!this.classList.contains("disabled_button"))IslayPub.undo_redo.redo();' draggable=false>
+						<div class="button_area_function_name"><span data-text_name="edit_buttons_redo"></span></div>
+					</div>
+					<div>
+						<img alt="" src='./img/copy.png' id='character_copy_button' ontouchend='(function(){IslayPub.copy_paste.copy();})()' draggable=false>
+						<div class="button_area_function_name"><span data-text_name="edit_buttons_copy"></span></div>
+					</div>
+					<div>
+						<img alt="" src='./img/paste.png' id='character_paste_button' ontouchend='(function(){IslayPub.copy_paste.paste();})()' draggable=false>
+						<div class="button_area_function_name"><span data-text_name="edit_buttons_paste"></span></div>
+					</div>
+					<div>
+						<img alt="" src='./img/system_button.png' id='system_button' ontouchend="IslayPub.system_dialog.open();" draggable=false>
+						<div class="button_area_function_name"><span data-text_name="edit_buttons_system"></span></div>
+					</div>
+					<div>
+						<img alt="" src='./img/play.png' id="play_button" ontouchend="IslayPub.play();" draggable=false>
+						<div class="button_area_function_name"><span data-text_name="edit_buttons_play"></span></div>
+					</div>
+				</div>
+				<div id='file_menus'>
+					<div>
+						<img alt="" src='./img/public.png' id='publish_button' ontouchend="IslayPub.publishing();">
+						<div class="button_area_function_name"><span data-text_name="file_menus_public"></span></div>
+					</div>
+					<div>
+						<img alt="" src='./img/save_load.png' id='save_load_button' ontouchend="IslayPub.save_load_dialog.open();">
+						<div class="button_area_function_name"><span data-text_name="file_menus_save_load"></span></div>
+					</div>
+					<div>
+						<img alt="" src='./img/help.png' id='help_button' ontouchend="window.open('/help/manual');">
+						<div class="button_area_function_name"><span data-text_name="file_menus_help"></span></div>
+					</div>
+				</div>
+			</div>
+			<div id='tab_menus'>
+				<input id="tab_menu_character" type="radio" name="tab_menu_radio" value="character" checked="checked" onchange="document.getElementById('tab_area').classList.remove('group');document.getElementById('tab_area').classList.add('character');">
+				<label for="tab_menu_character" id="tab_menu1"><span data-text_name="tab_menu2"></span></label>
+				<input id="tab_menu_group" type="radio" name="tab_menu_radio" value="group" onchange="document.getElementById('tab_area').classList.remove('character');document.getElementById('tab_area').classList.add('group');">
+				<label for="tab_menu_group" id="tab_menu2"><span data-text_name="tab_menu1"></span></label>
+			</div>
+			<div id="tab_area" class="character" onwheel='event.stopPropagation();' onmousewheel='event.stopPropagation();'>
+				<div id="character_tabs">
+					<div id="add_character_tab_button" ontouchstart="IslayPub.character.tab.create();"><span data-text_name="creat_character_tab"></span></div>
+				</div>
+				<div id='group_tabs'>
+					<div id="add_group_tab_button" ontouchstart="IslayPub.group.tab.create();"><span data-text_name="creat_group_tab"></span></div>
+				</div>
+				<div id="group_info" ontouchstart="this.parentNode.removeChild(this);">
+					<div id="group_info_img"></div>
+					<div id="group_info_message"><span data-text_name="group_info_message"></span></div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="IslayPub.js"></script>
+		<script type="text/javascript" src="character_tab_canvas.js"></script>
+		<script type="text/javascript" src="character_yajirusi.js"></script>
+		<script type="text/javascript" src="character_maru.js"></script>
+		<script type="text/javascript" src="group.js"></script>
+		<script type="text/javascript" src="dialog.js"></script>
+		<script type="text/javascript" src="maru_dialog.js"></script>
+		<script type="text/javascript" src="yajirusi_dialog.js"></script>
+		<script type="text/javascript" src="undo_redo.js"></script>
+		<script type="text/javascript" src="copy_paste.js"></script>
+		<script type="text/javascript" src="contextmenu.js"></script>
+		<script type="text/javascript" src="save_load_dialog.js"></script>
+		<script type="text/javascript" src="system_dialog.js"></script>
+		<script type="text/javascript" src="language.js"></script>
+	</body>
+</html>

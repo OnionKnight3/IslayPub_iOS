@@ -1,0 +1,280 @@
+#hud_area{
+	width: 0;
+	height: 0;
+	overflow: visible;
+}
+#hud_area *{
+	overflow: visible;
+}
+
+/* button_area */
+#button_area{
+	position: absolute;
+	left: 0;
+	right: 0;
+	height: 0;
+	
+	display: flex;
+	justify-content: flex-end;
+}
+.button_area_function_name{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+	font-size: 10px;
+	text-shadow: 0px 0px 5px white;
+}
+#button_area *:hover > .button_area_function_name{
+	text-decoration: underline;
+}
+
+/* character_edit_type_select */
+#character_edit_type_select{
+	position: relative;
+}
+#character_edit_type_select label{
+	display: inline-block;
+}
+#character_edit_type_select input[type=radio] + *{
+	border: transparent 3px solid;
+}
+#character_edit_type_select input[type=radio]:checked + *{
+	border:solid 3px #000000;
+	border-radius: 10px;
+}
+#character_edit_type_select img{
+	height: 50px;
+}
+
+/* edit_buttons */
+#edit_buttons{
+	position: relative;
+	height: 50px;
+	border-left: solid 2px #888888;
+	border-right: solid 2px #888888;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+#edit_buttons > div{
+	display: inline-block;
+}
+#edit_buttons img{	
+	height: 50px;
+}
+
+/* file_menus */
+#file_menus{
+	position:relative;
+}
+#file_menus > div{
+	display: inline-block;
+}
+#file_menus  img{
+	height: 50px;
+}
+/* end of button_area */
+
+/* tab_menus */
+#tab_menus{
+	position: absolute;
+	height: 0;
+	width: 0;
+	top: 70px;
+	right: 160px;
+	z-index: 2;
+	overflow: visible;
+}
+#tab_menus label{
+	position: absolute;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding-left: 5px;
+	font-size: 13px;
+	height: 30px;
+	width: 100px;
+	border-radius: 20px 20px 20px 20px / 20px 20px 20px 20px;
+	background-color: rgb(120, 255, 102);
+}
+#tab_menus input[type=radio] + label{
+	animation-name: tab_menu_to_front;
+	animation-delay: 0s;
+	animation-duration: 1s;
+}
+@keyframes tab_menu_to_front{
+	0%{
+		top: 15px;
+		left: 20px;
+		background-color: rgb(87, 184, 74);
+	}
+	50%{
+		top: -5px;
+		left: -5px;
+	}
+	100%{
+		background-color: rgb(120, 255, 102);
+		top: 0;
+		left: 0;
+		z-index: 1;
+	}
+}
+#tab_menus input[type=radio]:checked + label{
+	top: 15px;
+	left: 20px;
+	z-index: -1;
+	background-color: rgb(87, 184, 74);
+	
+	animation-name: tab_menu_to_back;
+	animation-delay: 0s;
+	animation-duration: 1s;
+}
+@keyframes tab_menu_to_back{
+	0%{
+		background-color: rgb(120, 255, 102);
+		top: 0;
+		left: 0;
+		z-index: 1;
+	}
+	50%{
+		top: 20px;
+		left: 25px;
+	}
+	100%{
+		background-color: rgb(87, 184, 74);
+		top: 15px;
+		left: 20px;
+	}
+}
+/* end of tab_menus */
+
+/* tab_area */
+#tab_area > *{
+	display: none;
+}
+#tab_area.character > #character_tabs{
+	display: block;
+}
+#tab_area.group > #group_tabs, #tab_area.group > #group_info{
+	display: block;
+}
+
+#character_tabs, #group_tabs{
+	position: absolute;
+	top: 130px;
+	right: -100px;
+	width: 300px;
+	white-space: nowrap;
+	overflow-y: scroll;
+	overflow-x: hidden;
+	height: auto;
+	max-height: calc(100vh - 130px);
+}
+
+.character_tab, .group_tab{
+	border: transparent 1px solid;
+	position: relative;
+	height: 40px;
+	left: 50px;
+	right: 0;
+	border-radius: 15px 0 0 15px / 50% 0 0 50%;
+	padding-left: 10px;
+	
+	display: flex;
+	align-items: center;
+	
+	text-shadow: 0px 0px 5px white;
+	
+	transition: 0.5s left ease 0s;
+	animation-name: tab_anime;
+	animation-duration: 1s;
+}
+@keyframes tab_anime{
+	0%{
+		left: 200px;
+	}
+	100%{
+	}
+}
+#add_character_tab_button, #add_group_tab_button{
+	border: transparent 1px solid;
+	position: relative;
+	height: 40px;
+	width: 100%;
+	left: 100px;
+	border-radius: 15px 0 0 15px / 50% 0 0 50%;
+	padding-left: 10px;
+	
+	display: flex;
+	align-items: center;
+	background: linear-gradient(-175deg, rgba(120, 255, 102, 0), rgb(120, 255, 102));
+}
+.character_tab:hover{
+	left: 30px;
+}
+.checked_tab, .hovered_group_tab{
+	left: 0;
+}
+.checked_tab:hover, .group_tab:hover{
+	left: 0;
+}
+.character_tab > span[name="character_tab_name"], .group_tab > span[name="group_tab_name"]{
+	display: block;
+	position: relative;
+	top:0;
+	bottom:0;
+}
+.character_tab_rename_button, .group_tab_rename_button{
+	height: 25px;
+	position: absolute;
+	left: 150px;
+	top: 0;
+	bottom: 0;
+	margin: auto;
+	display: none;
+}
+.checked_tab > .character_tab_rename_button, .group_tab:hover > .group_tab_rename_button{
+	display: block;
+}
+.character_tab > .close_button, .group_tab > .close_button{
+	position: absolute;
+	left: 175px;
+	display: none;
+}
+.checked_tab > .close_button, .group_tab:hover > .close_button{
+	display: block;
+}
+
+#group_info{
+	position: absolute;
+	height: calc(100vh - 130px);
+	width: 100px;
+	right: 200px;
+	top: 130px;
+}
+#group_info_message{
+	position: absolute;
+	right: 0;
+	writing-mode: vertical-rl;
+}
+#group_info_img{
+	position: absolute;
+	height: 100%;
+	width: 50px;
+	background-image: url("./img/arrow.png");
+	background-size: contain;
+	
+	animation-name: group_info_img;
+	animation-direction: alternate;
+	animation-iteration-count: infinite;
+	animation-timing-function: ease;
+	animation-duration: 1s;
+}
+@keyframes group_info_img{
+	0%{
+		left: 0%;
+	}
+	100%{
+		left: 30px;;
+	}
+}
+/* end of tab_area */
